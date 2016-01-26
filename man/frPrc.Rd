@@ -2,6 +2,7 @@
 % Please edit documentation in R/functionsExplore.r
 \name{frPrc}
 \alias{frPrc}
+\title{frPrc}
 \usage{
 frPrc(x, strata, test = FALSE)
 }
@@ -11,5 +12,8 @@ frPrc(x, strata, test = FALSE)
 \item{strata}{strata}
 
 \item{test}{FALSE}
+}
+\description{
+frPrc
 }
 

@@ -5,8 +5,9 @@
 \title{Setting for computing scales of a few tests}
 \usage{
 barplot_errs(X = NULL, grps = NULL, title = "Means", col.palette = NULL,
-  na.rm = TRUE, filename = NULL, sort.by = "order=order(colMeans(X))",
-  means.cis = NULL)
+  na.rm = TRUE, filename = NULL,
+  sort.by = "order.vars=order(colMeans(X))", means.cis = NULL,
+  ylab = "means", xlab = "", grp.names = "grps")
 }
 \arguments{
 \item{X}{NULL}
@@ -17,15 +18,24 @@ barplot_errs(X = NULL, grps = NULL, title = "Means", col.palette = NULL,
 
 \item{col.palette}{NULL}
 
+\item{na.rm}{TRUE}
+
 \item{filename}{NULL}
 
-\item{sort.by}{"order=order(colMeans(X))"}
+\item{sort.by}{"order.vars=order(colMeans(X))"}
 
 \item{means.cis}{NULL}
-
-\item{na.r}{TRUE}
 }
 \description{
 barre d'errore
+}
+\examples{
+\dontrun{
+plt=barplot_errs(dat,col.palette=wes.palette(2, "Darjeeling"),grps=dati$pz.,title=title,sort.by=sort.by)     
+ps.cor=apply(dat,2,function(x)cor.test(dati$pz,x)$p.value)
+signif =names(which(p.adjust(ps.cor,"holm")<=.05))
+plt=plt+ annotate("text", x = signif, y = -.12, label = "*",color="darkred",size=15)
+plt
+}
 }
 

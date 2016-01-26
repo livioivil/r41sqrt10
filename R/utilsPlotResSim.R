@@ -1,10 +1,15 @@
-library(Hmisc)
+#'@title summaryResSim
+#'@name summaryResSim
+#'@export
 summaryResSim <- function(res,alphas=c(.01,.05,.1,.5,.75),na.rm=FALSE){
   out=sapply(alphas,function(a)colMeans(res<=a,na.rm=na.rm))
   colnames(out)=paste("<=",alphas,sep="")
 out  
 }
 ######
+#'@name plotResSim
+#'@title plotResSim
+#'@export
 plotResSim <- function(resSim, nameOut=NULL, title="Type I Error Control",cols=NULL, alsoZoom=FALSE,
                        width=10,height=10,na.rm=FALSE,col.abline="red",verticals=FALSE,...){
 #   if(is.null(cols)) cols=wes.palette(name = "Zissou", type = "continuous")(ncol(resSim))

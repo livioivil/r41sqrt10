@@ -2,12 +2,17 @@
 % Please edit documentation in R/functionsExplore.r
 \name{strata.meanPmSd}
 \alias{strata.meanPmSd}
+\title{strata.meanPmSd}
 \usage{
 strata.meanPmSd(Y, strata, round.digits = 1, na.rm = FALSE, test = FALSE,
   mse = FALSE, as.table = FALSE, pm = TRUE, addTotal = FALSE,
-  medianAndRange = FALSE)
+  medianAndRange = FALSE, as.character = TRUE)
 }
 \arguments{
+\item{Y}{matice}
+
+\item{strata}{vettore o NULL}
+
 \item{round.digits}{1}
 
 \item{na.rm}{FALSE}
@@ -23,6 +28,8 @@ strata.meanPmSd(Y, strata, round.digits = 1, na.rm = FALSE, test = FALSE,
 \item{addTotal}{FALSE}
 
 \item{medianAndRange}{FALSE}
+
+\item{as.character}{TRUE}
 }
 \description{
 strata.meanPmSd

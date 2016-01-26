@@ -1,11 +1,35 @@
+# 
+# xyplot(decrease ~ treatment, OrchardSprays, groups = rowpos,
+#        type = "a",
+#        auto.key =
+#          list(space = "right", points = FALSE, lines = TRUE))
+# # Summarize a dataset by two variables
+# dfx <- data.frame(
+#   group = c(rep('A', 8), rep('B', 15), rep('C', 6)),
+#   sex = sample(c("M", "F"), size = 29, replace = TRUE),
+#   age = runif(n = 29, min = 18, max = 54)
+# )
+# 
+# 
+# ddply {plyr}
+# # Note the use of the '.' function to allow
+# # group and sex to be used without quoting
+# ddply(dfx, .(group, sex), summarize,
+#       mean = round(mean(age), 2),
+#       sd = round(sd(age), 2))
+# by.df(dati,gruppo,function(dati)round(t(stats(dati,c("mean","sd"))),2))
 
 ###################
-#' @example #by.df(dati,gruppo,function(dati)round(t(stats(dati,c("mean","sd"))),2))
 #' @aliases tableFrPrc
 #' @name stats
 #' @title descriptive stats functions
+#' @param x vettore
+#' @param stat tipo di statistica test
+#' @param as.vector logico
+#' @param title NULL
+#' @param rounding 1 di default
 #' @export
-#' 
+
 
 stats= function(x,stat=c("mean","sd","valids","not.valids","quantile","CI","mse"),
                 as.vector=FALSE){
@@ -88,9 +112,10 @@ strata.perc <- function(Y,strata,round.digits=1,na.rm=FALSE,test=FALSE,as.table=
 ###########
 #'@export
 #'@name strata.meanPmSd
+#'@title strata.meanPmSd
 #'@description strata.meanPmSd
-#'@param Y
-#'@param strata
+#'@param Y matice
+#'@param strata vettore o NULL
 #'@param round.digits 1 
 #'@param na.rm FALSE 
 #'@param test FALSE
@@ -99,13 +124,21 @@ strata.perc <- function(Y,strata,round.digits=1,na.rm=FALSE,test=FALSE,as.table=
 #'@param pm TRUE
 #'@param addTotal FALSE
 #'@param medianAndRange FALSE
+#'@param as.character  TRUE
 strata.meanPmSd <- function(Y,strata,round.digits=1,na.rm=FALSE,test=FALSE,mse=FALSE,as.table=FALSE,pm=TRUE,addTotal=FALSE,
-                            medianAndRange=FALSE){
+                            medianAndRange=FALSE,as.character=TRUE){
   if(test=="ranks"){ 
     rankTest=TRUE
+    postHoc=FALSE
     test=TRUE
-  } else  rankTest=FALSE
-  
+  } else if(test=="postHoc"){ 
+    rankTest=FALSE
+    postHoc=TRUE
+    test=TRUE
+  } else  {
+    rankTest=FALSE
+    postHoc=FALSE    
+  }
   if(length(strata)==1){
     if(is.character(strata)) strata.id=colnames(Y)[which(colnames(Y)==strata)] else stata.id=strata
     strata=Y[,strata.id,drop=FALSE]
@@ -148,18 +181,47 @@ strata.meanPmSd <- function(Y,strata,round.digits=1,na.rm=FALSE,test=FALSE,mse=F
     rr=cbind(rr,Total=meanPmSd(Y))
   
   if(test){
-    if(rankTest){
-      ps=round(apply(Y,2, function(y) kruskal.test(y~.,data=strata)$p.value),3) 
-    } else
-      ps=round(apply(Y,2, function(y) anova(lm(y~.,data=strata))[1,"Pr(>F)"]),3)
-    stars=ifelse(ps<.05,"*","")
-    ps=ifelse(ps==0,"<.001",ps)
-    rr=cbind(rr,p.value=ps,Sign=stars)
+    if(postHoc){
+   
+      temp=apply(Y,2, function(y) {
+        mod=lm(y~.,data=strata)
+        anov=anova(mod)
+        out=data.frame(df1=anov[1,"Df"],df2=anov[2,"Df"],
+                   F=anov[1,"F value"],p=anov[1,"Pr(>F)"])
+        
+        nsamp=length(coefficients(mod))
+        if(nsamp>2) {   
+          res=summary(multcomp::glht(mod,  test = adjusted("Shaffer"),linfct = mcp(data="Tukey")))
+          ps.pairs=res$ test$pvalues
+          names(ps.pairs)=names(res$ test$coefficients)
+          out=c(out,ps.pairs)
+        }
+        return(out)
+        })
+      rrr=data.frame(temp[[1]])
+      for (i in 2:length(temp))
+        rrr=rbind(rrr,data.frame(temp[[i]]))
+      
+      rrr$p=round(rrr$p,3)
+      rrr$Sign=ifelse(rrr$p<.05,"*","")
+      rrr$p=ifelse(rrr$p<.001,"<.001",rrr$p)
+      rr=cbind(rr,rrr)
+      
+    } else{
+        if(rankTest){
+        ps=round(apply(Y,2, function(y) kruskal.test(y~.,data=strata)$p.value),3) 
+      } else {
+        ps=round(apply(Y,2, function(y) anova(lm(y~.,data=strata))[1,"Pr(>F)"]),3)
+      }
+      stars=ifelse(ps<.05,"*","")
+      ps=ifelse(ps==0,"<.001",ps)
+      rr=cbind(rr,p.value=ps,Sign=stars)
+    }
   }
   if(as.table){
     rr=as.table(as.matrix(rr))
   }
-  rr= apply(rr,2,as.character)
+  if(as.character)  rr= apply(rr,2,as.character)
   rownames(rr)=colnames(Y)
   rr
   
@@ -180,12 +242,13 @@ var.is <- function(data){
 
 
 #####################
-#'@export
 #'@name frPrc
+#'@title frPrc
 #'@description frPrc
 #'@param x x
 #'@param strata strata
 #'@param test FALSE
+#'@export
 frPrc <- function(x,strata,test=FALSE){
     x=factor(x)
     strata=factor(strata)
