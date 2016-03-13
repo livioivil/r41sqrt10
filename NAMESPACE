@@ -2,6 +2,7 @@
 
 S3method(by,df)
 export(barplot_errs)
+export(breaks_unit)
 export(expit)
 export(fillNA)
 export(frPrc)
