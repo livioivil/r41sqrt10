@@ -9,9 +9,11 @@ out
 ######
 #'@name plotResSim
 #'@title plotResSim
+#'@param resSim matrix Bxp with p number of test, B number of replications
+#'@param legend logical, names are taken from the colnames of resSim
 #'@export
 plotResSim <- function(resSim, nameOut=NULL, title="Type I Error Control",cols=NULL, alsoZoom=FALSE,
-                       width=10,height=10,na.rm=FALSE,col.abline="red",verticals=FALSE,...){
+                       width=10,height=10,na.rm=FALSE,col.abline="red",verticals=FALSE,legend=TRUE,...){
 #   if(is.null(cols)) cols=wes.palette(name = "Zissou", type = "continuous")(ncol(resSim))
   if(is.null(cols)) cols=rainbow(ncol(resSim))
   if(is.null(nameOut)) if(alsoZoom) par(mfrow=c(1,2)) # else par(mfrow=c(1,1))
@@ -27,11 +29,11 @@ plotResSim <- function(resSim, nameOut=NULL, title="Type I Error Control",cols=N
   if(!is.null(nameOut)) pdf(paste(nameOut,".pdf",sep=""),width=width,height=height) else if(alsoZoom) par(mfrow=c(1,2))
   plot.ecdf(.getRes(resSim[,1],na.rm=na.rm),ylab="proportion of rejections",xlab="Significance level",main=title,col="white",
             xlim=c(0,1),ylim=c(0,1),asp=1,lwd=8,cex.lab=2,cex.axis=2)
+  if(legend) legend("bottomright", legend=colnames(resSim),col=cols,lwd=5,
+                    bty="n",cex=3)
   sapply(1:ncol(resSim),
          function(i) plot.ecdf(.getRes(resSim[,i],na.rm=na.rm),col=cols[i],add=TRUE,lwd=8,verticals = verticals,cex=3))
   abline(0,1,col=col.abline)
-  legend("bottomright", legend=colnames(resSim),col=cols,lwd=5,
-         bty="n",cex=3)
   if(!is.null(nameOut)) dev.off()
   
   if(alsoZoom) {
@@ -42,7 +44,7 @@ plotResSim <- function(resSim, nameOut=NULL, title="Type I Error Control",cols=N
     sapply(1:ncol(resSim),
            function(i) Ecdf(resSim[,i],col=cols[i],add=TRUE,lwd=8))
     abline(0,1,col="red")
-    legend(.4,.7, legend=colnames(resSim),col=cols,lwd=5,
+    if(legend) legend(.4,.7, legend=colnames(resSim),col=cols,lwd=5,
            bty="n",cex=sqrt(1/ncol(resSim)))
     if(!is.null(nameOut)) dev.off()
   }
