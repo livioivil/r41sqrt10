@@ -34,4 +34,3 @@ strata.meanPmSd(Y, strata, round.digits = 1, na.rm = FALSE, test = FALSE,
 \description{
 strata.meanPmSd
 }
-

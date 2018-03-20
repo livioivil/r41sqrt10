@@ -16,4 +16,3 @@ frPrc(x, strata, test = FALSE)
 \description{
 frPrc
 }
-

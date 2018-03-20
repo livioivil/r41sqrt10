@@ -19,4 +19,3 @@ stats(x, stat = c("mean", "sd", "valids", "not.valids", "quantile", "CI",
 
 \item{rounding}{1 di default}
 }
-

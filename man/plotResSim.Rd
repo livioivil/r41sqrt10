@@ -14,4 +14,3 @@ plotResSim(resSim, nameOut = NULL, title = "Type I Error Control",
 
 \item{legend}{logical, names are taken from the colnames of resSim}
 }
-

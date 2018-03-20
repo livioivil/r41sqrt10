@@ -10,4 +10,3 @@ compute_realized_fwer_and_power(ps, h1 = rep(FALSE, length(ps)),
 \description{
 compute_realized_fwer_and_power
 }
-

@@ -7,4 +7,3 @@
 \usage{
 remove_constant(dataset)
 }
-

@@ -11,4 +11,3 @@ fillNA(data, name.fill)
 
 \item{name.fill}{the column name to fill the NAs using all other columns}
 }
-

@@ -4,7 +4,7 @@
 \alias{t.test.light}
 \title{t.test.light}
 \usage{
-\method{t.test}{light}(Y, tail = 1)
+\method{t}{test.light}(Y, tail = 1)
 }
 \arguments{
 \item{Y}{n X p matrix or data.frame}
@@ -14,4 +14,3 @@
 \description{
 t.test.light
 }
-

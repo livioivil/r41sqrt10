@@ -6,4 +6,3 @@
 \usage{
 plotLog10(x, y, ...)
 }
-

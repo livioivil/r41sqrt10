@@ -7,4 +7,3 @@
 \usage{
 logit(x)
 }
-

@@ -6,4 +6,3 @@
 \usage{
 plotP(x, y, ...)
 }
-
