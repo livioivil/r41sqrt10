@@ -4,10 +4,12 @@
 \alias{fillNA}
 \title{fill NAs of a column using all other columns (as covariates in a lm)}
 \usage{
-fillNA(data, name.fill)
+fillNA(data, name.fill, method = "predict")
 }
 \arguments{
 \item{data}{a datsa.frame}
 
 \item{name.fill}{the column name to fill the NAs using all other columns}
+
+\item{method}{="predict" or a function to be applied to each column of data with at least an NA.}
 }
