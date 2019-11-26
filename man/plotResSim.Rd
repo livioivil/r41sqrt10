@@ -6,11 +6,14 @@
 \usage{
 plotResSim(resSim, nameOut = NULL, title = "Type I Error Control",
   cols = NULL, alsoZoom = FALSE, width = 10, height = 10,
-  na.rm = FALSE, col.abline = "red", verticals = FALSE, legend = TRUE,
-  ...)
+  na.rm = FALSE, col.abline = "red", verticals = FALSE,
+  legend = TRUE, ...)
 }
 \arguments{
 \item{resSim}{matrix Bxp with p number of test, B number of replications}
 
 \item{legend}{logical, names are taken from the colnames of resSim}
+}
+\description{
+plotResSim
 }

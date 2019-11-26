@@ -4,9 +4,9 @@
 \alias{strata.meanPmSd}
 \title{strata.meanPmSd}
 \usage{
-strata.meanPmSd(Y, strata, round.digits = 1, na.rm = FALSE, test = FALSE,
-  mse = FALSE, as.table = FALSE, pm = TRUE, addTotal = FALSE,
-  medianAndRange = FALSE, as.character = TRUE)
+strata.meanPmSd(Y, strata, round.digits = 1, na.rm = FALSE,
+  test = FALSE, mse = FALSE, as.table = FALSE, pm = TRUE,
+  addTotal = FALSE, medianAndRange = FALSE, as.character = TRUE)
 }
 \arguments{
 \item{Y}{matice}

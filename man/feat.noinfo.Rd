@@ -7,3 +7,6 @@
 \usage{
 remove_constant(dataset)
 }
+\description{
+remove_constant
+}

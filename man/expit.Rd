@@ -7,3 +7,6 @@
 \usage{
 logit(x)
 }
+\description{
+logit
+}

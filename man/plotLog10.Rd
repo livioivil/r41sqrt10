@@ -6,3 +6,6 @@
 \usage{
 plotLog10(x, y, ...)
 }
+\description{
+plotLog10
+}

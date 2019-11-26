@@ -6,3 +6,6 @@
 \usage{
 plotP(x, y, ...)
 }
+\description{
+plotP
+}

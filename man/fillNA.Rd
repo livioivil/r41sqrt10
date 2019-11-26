@@ -13,3 +13,6 @@ fillNA(data, name.fill, method = "predict")
 
 \item{method}{="predict" or a function to be applied to each column of data with at least an NA.}
 }
+\description{
+fill NAs of a column using all other columns (as covariates in a lm)
+}
