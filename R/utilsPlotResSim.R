@@ -50,13 +50,15 @@ plotResSim <- function(resSim, nameOut=NULL, title="Type I Error Control",cols=N
   }
 }
 
+
+#' @export
 plotResSim_ <- function(resSim, title="Proportion of Rejections",
                         ylab=NULL){
   if(is.null(ylab)) ylab=title
   df <- as.data.frame.table(resSim)
   df$Var1=NULL
   names(df)=c("Method","Rejections")
-  ggplot(df, aes(Rejections, colour = Method)) + stat_ecdf() + geom_abline(intercept = 0,slope = 1)+ 
+  ggplot(df, aes(Rejections, colour = Method)) + stat_ecdf() + geom_abline(intercept = 0,slope = 1,colour="black",alpha = 0.3)+ 
     theme_bw()+ggtitle("")+xlab("Signif. Level") + ylab(ylab)+ggtitle(title)
 }
 #   , nameOut=NULL, title="Type I Error Control",cols=NULL, alsoZoom=FALSE,
