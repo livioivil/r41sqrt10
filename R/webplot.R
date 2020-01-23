@@ -1,5 +1,4 @@
-#' webplot
-#' #' 
+#' @names webplot webplot.multi
 #' @aliases webplot webplot.multi
 #' @param data to be done %% ~~Describe \code{data} here~~
 #' @param data.row to be done%% ~~Describe \code{data.row} here~~
