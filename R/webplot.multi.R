@@ -1,6 +1,5 @@
 #'@export
-#'@alias webplot.multi
-#'@alias webplot
+#'@describeIn webplot
 webplot.multi <- function(data, y.cols = NULL, main = NULL, add = F, 
                           scale=TRUE,lwd=2,lty=1,cex=1,
          col=NULL,...){
