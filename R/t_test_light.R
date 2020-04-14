@@ -6,7 +6,8 @@
 #' @description t.test.light
 #' @param Y n X p matrix or data.frame
 #' @param tail +1,-1 or 0
-#'
+#' @export
+#' 
 t.test.light <- function(Y,tail=1){
   sd=apply(Y,2,sd,na.rm=TRUE)
   n=colSums(!is.na(Y))
