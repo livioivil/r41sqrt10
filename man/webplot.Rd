@@ -9,17 +9,17 @@ webplot(data, data.row = NULL, y.cols = NULL, main = NULL, add = F,
   col = "red", scale = T, lwd = 3, lty = 1, cex = 1, ...)
 }
 \arguments{
-\item{data}{to be done %% ~~Describe \code{data} here~~}
+\item{data}{to be done}
 
-\item{data.row}{to be done%% ~~Describe \code{data.row} here~~}
+\item{data.row}{to be done}
 
-\item{y.cols}{to be done%% ~~Describe \code{y.cols} here~~}
+\item{y.cols}{to be done}
 
-\item{main}{to be done%% ~~Describe \code{main} here~~}
+\item{main}{to be done}
 
-\item{add}{to be done%% ~~Describe \code{add} here~~}
+\item{add}{to be done}
 
-\item{col}{to be done%% ~~Describe \code{col} here~~}
+\item{col}{to be done}
 
 \item{scale}{if \code{TRUE}: \code{data = apply(data, 2, function(x) ((x -
 min(x))/(max(x)-min(x))+.1)/1.1)}}
@@ -30,7 +30,7 @@ min(x))/(max(x)-min(x))+.1)/1.1)}}
 
 \item{cex}{as in \code{plot()}}
 
-\item{\dots}{to be done %% ~~Describe \code{\dots} here~~}
+\item{\dots}{to be done}
 
 \item{col}{as in \code{plot()}}
 }

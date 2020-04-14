@@ -1,18 +1,18 @@
 #' @title webplot
 #' @aliases webplot webplot.multi
-#' @param data to be done %% ~~Describe \code{data} here~~
-#' @param data.row to be done%% ~~Describe \code{data.row} here~~
-#' @param y.cols to be done%% ~~Describe \code{y.cols} here~~
-#' @param main to be done%% ~~Describe \code{main} here~~
-#' @param add to be done%% ~~Describe \code{add} here~~
-#' @param col to be done%% ~~Describe \code{col} here~~
+#' @param data to be done 
+#' @param data.row to be done
+#' @param y.cols to be done
+#' @param main to be done
+#' @param add to be done
+#' @param col to be done
 #' @param scale if \code{TRUE}: \code{data = apply(data, 2, function(x) ((x -
 #' min(x))/(max(x)-min(x))+.1)/1.1)}
 #' @param col  as in \code{plot()}
 #' @param lwd  as in \code{plot()}
 #' @param lty  as in \code{plot()}
 #' @param cex  as in \code{plot()}
-#' @param \dots to be done %% ~~Describe \code{\dots} here~~
+#' @param \dots to be done 
 #' @examples
 #' data(pal.unipd)
 #' 
