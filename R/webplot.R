@@ -6,8 +6,8 @@
 #' @param main to be done%% ~~Describe \code{main} here~~
 #' @param add to be done%% ~~Describe \code{add} here~~
 #' @param col to be done%% ~~Describe \code{col} here~~
-#' @param scale if \code{TRUE}: data = apply(data, 2, function(x) ((x -
-#' min(x))/(max(x)-min(x))+.1)/1.1)
+#' @param scale if \code{TRUE}: \code{data = apply(data, 2, function(x) ((x -
+#' min(x))/(max(x)-min(x))+.1)/1.1)}
 #' @param col  as in \code{plot()}
 #' @param lwd  as in \code{plot()}
 #' @param lty  as in \code{plot()}
@@ -37,7 +37,7 @@ webplot <- function(data, data.row = NULL, y.cols = NULL, main = NULL, add = F,
   if (is.null(data.row)) 
     data.row = 1
   if (is.character(data.row)) 
-    if (data.row %in% rownames(data)) {
+    if (d<ata.row %in% rownames(data)) {
       data.row = which(rownames(data) == data.row)
     } else {
       stop("Invalid value for data.row:\nMust be a valid rownames(data) or row-index value")

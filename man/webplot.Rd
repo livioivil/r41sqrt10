@@ -21,8 +21,8 @@ webplot(data, data.row = NULL, y.cols = NULL, main = NULL, add = F,
 
 \item{col}{to be done%% ~~Describe \code{col} here~~}
 
-\item{scale}{if \code{TRUE}: data = apply(data, 2, function(x) ((x -
-min(x))/(max(x)-min(x))+.1)/1.1)}
+\item{scale}{if \code{TRUE}: \code{data = apply(data, 2, function(x) ((x -
+min(x))/(max(x)-min(x))+.1)/1.1)}}
 
 \item{lwd}{as in \code{plot()}}
 
