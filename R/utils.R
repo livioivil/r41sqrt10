@@ -1,3 +1,14 @@
+#'@description mode
+#'@export
+#'@title mode
+#'@name mode
+#'@param v vector of values to compute the mode on.
+mode <- function(v) {
+  uniqv <- unique(v)
+  uniqv[which.max(tabulate(match(v, uniqv)))]
+}
+
+
 #'@description breaks_unit
 #'@export
 #'@title breaks_unit

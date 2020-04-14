@@ -111,13 +111,13 @@ ggbiplot2<-
                                                   length = 50))
         circle <- data.frame(xvar = r * cos(theta), yvar = r * 
                                sin(theta))
-        g <- g + geom_path(data = circle, color = muted("white"), 
+        g <- g + geom_path(data = circle, color = scales::muted("white"), 
                            size = 1/2, alpha = 1/3)
       }
       
       if(is.null(arrows.color)){
-        arrows.color=c(rep(muted("red"),n_vars[1]),
-                       rep(muted("green"),n_vars[2]))
+        arrows.color=c(rep(scales::muted("red"),n_vars[1]),
+                       rep(scales::muted("green"),n_vars[2]))
       }
       g <- g + geom_segment(data = df.v, aes(x = 0, y = 0, 
                                              xend = xvar, yend = yvar), 
