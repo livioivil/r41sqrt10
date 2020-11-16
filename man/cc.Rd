@@ -4,9 +4,19 @@
 \alias{cc}
 \title{cc}
 \usage{
-cc(X, Y)
+cc(X, Y, Zx = NULL, Zy = Zx, fill.na = FALSE)
+}
+\arguments{
+\item{X}{See \code{\link[CCA]{cc}} for a proper documentation.}
+
+\item{Y}{See \code{\link[CCA]{cc}} for a proper documentation.}
+
+\item{Zx}{(\code{=NULL} by default) covariates of \code{X}. If different from \code{NULL}, the \code{X} are residualized by \code{Zx} before enter \code{cc()}.}
+
+\item{Zy}{(\code{=Zx} by default) covariates of \code{Y}. Same use of \code{Zx}.}
+
+\item{fill.na}{replace \code{NA} in \code{X} and \code{Y} with column mean before enter \code{cc()}.}
 }
 \description{
-Same as \code{cc()} of package \code{CCA}, but it allows for X and Y to be rank deficient.
-See \code{\link[CCA]{cc}} for a proper documentation.
+Very similar \code{cc()} of package \code{CCA}, but 1) it allows for X and Y to be rank deficient, 2) it allows for categorical variables and 3) more (see below).
 }

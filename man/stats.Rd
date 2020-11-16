@@ -5,8 +5,11 @@
 \alias{tableFrPrc}
 \title{descriptive stats functions}
 \usage{
-stats(x, stat = c("mean", "sd", "valids", "not.valids", "quantile", "CI",
-  "mse"), as.vector = FALSE)
+stats(
+  x,
+  stat = c("mean", "sd", "valids", "not.valids", "quantile", "CI", "mse"),
+  as.vector = FALSE
+)
 }
 \arguments{
 \item{x}{vettore}

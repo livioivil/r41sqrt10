@@ -5,8 +5,19 @@
 \alias{webplot.multi}
 \title{webplot}
 \usage{
-webplot(data, data.row = NULL, y.cols = NULL, main = NULL, add = F,
-  col = "red", scale = T, lwd = 3, lty = 1, cex = 1, ...)
+webplot(
+  data,
+  data.row = NULL,
+  y.cols = NULL,
+  main = NULL,
+  add = F,
+  col = "red",
+  scale = T,
+  lwd = 3,
+  lty = 1,
+  cex = 1,
+  ...
+)
 }
 \arguments{
 \item{data}{to be done}
@@ -19,7 +30,7 @@ webplot(data, data.row = NULL, y.cols = NULL, main = NULL, add = F,
 
 \item{add}{to be done}
 
-\item{col}{to be done}
+\item{col}{as in \code{plot()}}
 
 \item{scale}{if \code{TRUE}: \code{data = apply(data, 2, function(x) ((x -
 min(x))/(max(x)-min(x))+.1)/1.1)}}
@@ -31,8 +42,6 @@ min(x))/(max(x)-min(x))+.1)/1.1)}}
 \item{cex}{as in \code{plot()}}
 
 \item{\dots}{to be done}
-
-\item{col}{as in \code{plot()}}
 }
 \description{
 webplot

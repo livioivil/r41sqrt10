@@ -4,8 +4,7 @@
 \alias{summaryResSim}
 \title{summaryResSim}
 \usage{
-summaryResSim(res, alphas = c(0.01, 0.05, 0.1, 0.5, 0.75),
-  na.rm = FALSE)
+summaryResSim(res, alphas = c(0.01, 0.05, 0.1, 0.5, 0.75), na.rm = FALSE)
 }
 \description{
 summaryResSim

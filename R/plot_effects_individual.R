@@ -53,7 +53,7 @@ plot_effects_individual <- function(data,pred_name,resp_name,predict_funct,
   } else {
     pred_values=unique(data[,pred_name])
   }
-  temp=data
+  temp=data.frame(data)
   temp$pred_var=temp[,pred_name]
   temp[,pred_name]=mean(data[,pred_name])
   
@@ -101,10 +101,10 @@ plot_effects_individual <- function(data,pred_name,resp_name,predict_funct,
 
 ############
 make_line_pred <- function(i,pred_id,data,pred_values,pred_name,center_effs,predict_funct){
-  newdata=cbind(pred_values,data[i,-pred_id,drop=FALSE],row.names=NULL)
+  newdata=data.frame(pred_values,data[i,-pred_id,drop=FALSE],row.names=NULL)
   colnames(newdata)[1]=pred_name
   newdata=newdata[,c(2:pred_id,1,(pred_id+1):ncol(newdata))]
-  pred_vals=predict_funct(newdata)
+  pred_vals=predict_funct(as.matrix(newdata))
   pred_vals=scale(pred_vals,scale = FALSE,center = center_effs)
   pred_vals
 }

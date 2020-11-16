@@ -4,10 +4,20 @@
 \alias{plotResSim}
 \title{plotResSim}
 \usage{
-plotResSim(resSim, nameOut = NULL, title = "Type I Error Control",
-  cols = NULL, alsoZoom = FALSE, width = 10, height = 10,
-  na.rm = FALSE, col.abline = "red", verticals = FALSE,
-  legend = TRUE, ...)
+plotResSim(
+  resSim,
+  nameOut = NULL,
+  title = "Type I Error Control",
+  cols = NULL,
+  alsoZoom = FALSE,
+  width = 10,
+  height = 10,
+  na.rm = FALSE,
+  col.abline = "red",
+  verticals = FALSE,
+  legend = TRUE,
+  ...
+)
 }
 \arguments{
 \item{resSim}{matrix Bxp with p number of test, B number of replications}

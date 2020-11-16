@@ -4,8 +4,15 @@
 \alias{plot_effects_individual}
 \title{plot_effects_individual}
 \usage{
-plot_effects_individual(data, pred_name, resp_name, predict_funct,
-  col.by = NULL, npoints = 10, center_effs = TRUE)
+plot_effects_individual(
+  data,
+  pred_name,
+  resp_name,
+  predict_funct,
+  col.by = NULL,
+  npoints = 10,
+  center_effs = TRUE
+)
 }
 \arguments{
 \item{data}{a data.frame}

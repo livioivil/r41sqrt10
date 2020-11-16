@@ -4,8 +4,7 @@
 \alias{compute_realized_fwer_and_power}
 \title{compute_realized_fwer_and_power}
 \usage{
-compute_realized_fwer_and_power(ps, h1 = rep(FALSE, length(ps)),
-  alpha = 0.05)
+compute_realized_fwer_and_power(ps, h1 = rep(FALSE, length(ps)), alpha = 0.05)
 }
 \description{
 compute_realized_fwer_and_power

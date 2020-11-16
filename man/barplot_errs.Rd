@@ -4,10 +4,19 @@
 \alias{barplot_errs}
 \title{Setting for computing scales of a few tests}
 \usage{
-barplot_errs(X = NULL, grps = NULL, title = "Means",
-  col.palette = NULL, na.rm = TRUE, filename = NULL,
-  sort.by = "order.vars=order(colMeans(X))", means.cis = NULL,
-  ylab = "means", xlab = "", grp.names = "grps")
+barplot_errs(
+  X = NULL,
+  grps = NULL,
+  title = "Means",
+  col.palette = NULL,
+  na.rm = TRUE,
+  filename = NULL,
+  sort.by = "order.vars=order(colMeans(X))",
+  means.cis = NULL,
+  ylab = "means",
+  xlab = "",
+  grp.names = "grps"
+)
 }
 \arguments{
 \item{X}{NULL}

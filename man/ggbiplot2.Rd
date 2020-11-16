@@ -4,13 +4,29 @@
 \alias{ggbiplot2}
 \title{ggbiplot2}
 \usage{
-ggbiplot2(pcobj, choices = 1:2, scale = 1, pc.biplot = TRUE,
-  obs.scale = 1 - scale, var.scale = scale, groups = NULL,
-  shapes = NULL, ellipse = FALSE, ellipse.prob = 0.68,
-  labels = NULL, labels.size = 3, alpha = 1, var.axes = TRUE,
-  circle = FALSE, circle.prob = 0.69, varname.size = 3,
-  varname.adjust = 1.5, varname.abbrev = FALSE, arrows.color = NULL,
-  ...)
+ggbiplot2(
+  pcobj,
+  choices = 1:2,
+  scale = 1,
+  pc.biplot = TRUE,
+  obs.scale = 1 - scale,
+  var.scale = scale,
+  groups = NULL,
+  shapes = NULL,
+  ellipse = FALSE,
+  ellipse.prob = 0.68,
+  labels = NULL,
+  labels.size = 3,
+  alpha = 1,
+  var.axes = TRUE,
+  circle = FALSE,
+  circle.prob = 0.69,
+  varname.size = 3,
+  varname.adjust = 1.5,
+  varname.abbrev = FALSE,
+  arrows.color = NULL,
+  ...
+)
 }
 \description{
 per i colori
