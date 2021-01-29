@@ -8,6 +8,15 @@ mode <- function(v) {
   uniqv[which.max(tabulate(match(v, uniqv)))]
 }
 
+#'@description trace of a matrix
+#'@export
+#'@title tr
+#'@name tr
+#'@param M matrix.
+tr <- function(M) {
+  sum(diag(M))
+}
+
 
 #'@description breaks_unit
 #'@export

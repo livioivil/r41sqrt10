@@ -45,7 +45,7 @@ ggbiplot2<-
       v <- pcobj$scaling
       d.total <- sum(d^2)
     }
-    else if(setequal(names(pcobj), ## is a CCA object
+    else if(setequal(setdiff(names(pcobj),"prop_expl_var"), ## is a CCA object
                      c("cor","names","xcoef","ycoef","scores"))){
       nobs.factor <- sqrt(nrow(pcobj$scores$xscores))
       d <- pcobj$cor

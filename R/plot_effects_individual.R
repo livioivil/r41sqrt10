@@ -46,13 +46,14 @@
 plot_effects_individual <- function(data,pred_name,resp_name,predict_funct,
                          col.by=NULL,npoints=10,center_effs=TRUE){
   rownames(data)=NULL
-  if(is.numeric(data[,pred_name])) {
-    rng=range(data[,pred_name])
-    if(any(is.na(rng))) warning("NA are not allowed!")
-    pred_values=seq(from=rng[1],to=rng[2],length.out = npoints)
-  } else {
-    pred_values=unique(data[,pred_name])
-  }
+  pred_values=data[, pred_name]
+  # if(is.numeric(data[,pred_name])) {
+  #   rng=range(data[,pred_name])
+  #   if(any(is.na(rng))) warning("NA are not allowed!")
+  #   pred_values=seq(from=rng[1],to=rng[2],length.out = npoints)
+  # } else {
+  #   pred_values=unique(data[,pred_name])
+  # }
   temp=data.frame(data)
   temp$pred_var=temp[,pred_name]
   temp[,pred_name]=mean(data[,pred_name])
