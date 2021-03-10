@@ -11,20 +11,25 @@
 cc<-function (X,Y,Zx=NULL,Zy=Zx,fill.na=FALSE) 
 {
   Y=convert2dummies(Y)
+  Y=as_named_matrix(Y,"Y")
   Y=fillnas(Y)
   X=convert2dummies(X)
+  X=as_named_matrix(X,"X")
   X=fillnas(X)
   
-  if(!is.null(Zx))   {
-    Zx=convert2dummies(Zx)
-    Zx=fillnas(Zx)
-    X=residualize(X,Zx); rm(Zx)
-  }
   if(!is.null(Zy))   {
     Zy=convert2dummies(Zy)
+    Zy=as_named_matrix(Zy,"Zy")
     Zy=fillnas(Zy)
     Y=residualize(Y,Zy); rm(Zy)
   }
+  if(!is.null(Zx))   {
+    Zx=convert2dummies(Zx)
+    Zx=as_named_matrix(Zx,"Zx")
+    Zx=fillnas(Zx)
+    X=residualize(X,Zx); rm(Zx)
+  }
+  
   
   
   Xnames = dimnames(X)[[2]]
@@ -85,6 +90,14 @@ fillnas <- function(Y){
   Y
 }
 
+as_named_matrix <- function(Y,root_name="V"){
+  Y=as.matrix(Y)
+  if(is.null(colnames(Y)))
+    colnames(Y)=paste0(root_name,1:ncol(Y))
+  Y
+}
+
+
 
 get_explaned_variance_proportion <- function(Y,score){
   expl_var=sapply(1:ncol(score),function(i){
@@ -95,3 +108,25 @@ get_explaned_variance_proportion <- function(Y,score){
     })
   expl_var/(tr(t(Y)%*%Y)/(nrow(Y)-1))
 }
+
+
+######################
+.cc_perm <- function(X,Y,nperms,alpha=.5){
+  n=nrow(X)
+  ccmod=CCA::cc(X, Y)
+  # ccmod$cor
+  
+  perm_and_cc=function(X,Y){
+    ccp=CCA::cc(X[sample(n),,drop=FALSE], Y)
+    ccp$cor[1]
+  }
+  
+  ccmod$p_values=rep(1,length(ccmod$cor))
+  for(i in 1:length(ccmod$cor)){
+    ccmod$p_values[i]=(sum(replicate(nperms,perm_and_cc(X,Y))>=ccmod$cor[i])+1)/(nperms+1)
+    if(ccmod$p_values[i]>=alpha) return(ccmod)
+      X=residualize(X,ccmod$scores$xscores[,i,drop=FALSE])
+      Y=residualize(Y,ccmod$scores$yscores[,i,drop=FALSE])
+    }
+}
+

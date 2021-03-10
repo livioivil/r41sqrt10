@@ -4,7 +4,7 @@
 \alias{fillNA}
 \title{fill NAs of a column using all other columns (as covariates in a lm)}
 \usage{
-fillNA(data, name.fill, method = "predict")
+fillNA(data, name.fill = NULL, method = "predict")
 }
 \arguments{
 \item{data}{a datsa.frame}

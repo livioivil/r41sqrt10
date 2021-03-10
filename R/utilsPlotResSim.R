@@ -3,6 +3,7 @@
 #'@export
 summaryResSim <- function(res,alphas=c(.01,.05,.1,.5,.75),na.rm=FALSE){
   out=sapply(alphas,function(a)colMeans(res<=a,na.rm=na.rm))
+  if(!is(out,"matrix")) out=t(matrix(out))
   colnames(out)=paste("<=",alphas,sep="")
 out  
 }

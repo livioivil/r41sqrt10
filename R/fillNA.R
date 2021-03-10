@@ -5,7 +5,7 @@
 #' @param method  ="predict" or a function to be applied to each column of data with at least an NA.
 #' @export 
 
-fillNA <- function(data,name.fill,method="predict"){
+fillNA <- function(data,name.fill=NULL,method="predict"){
   if(is.function(method)){
     for( id in which(apply(data,2,function(x) any(is.na(x))))){
       data[is.na(data[,id]),id]=method(data[,id],na.rm=TRUE)
