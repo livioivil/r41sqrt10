@@ -8,7 +8,7 @@
 #'@return The returned list is the same list as returned by \code{\link[CCA]{cc}}, while it also contains \code{prop_expl_var} which is a \code{list} reporting the proportion of explained (total) variance of \code{X} and \code{Y} by each component (i.e. mode).
 #'@export
 
-cc<-function (X,Y,Zx=NULL,Zy=Zx,fill.na=FALSE) 
+cc<-function (X,Y,Zx=NULL,Zy=Zx,numb_cc=NULL,fill.na=FALSE) 
 {
   Y=convert2dummies(Y)
   Y=as_named_matrix(Y,"Y")
@@ -21,13 +21,13 @@ cc<-function (X,Y,Zx=NULL,Zy=Zx,fill.na=FALSE)
     Zy=convert2dummies(Zy)
     Zy=as_named_matrix(Zy,"Zy")
     Zy=fillnas(Zy)
-    Y=residualize(Y,Zy); rm(Zy)
+    Y=residualize(Y,Zy); #rm(Zy)
   }
   if(!is.null(Zx))   {
     Zx=convert2dummies(Zx)
     Zx=as_named_matrix(Zx,"Zx")
     Zx=fillnas(Zx)
-    X=residualize(X,Zx); rm(Zx)
+    X=residualize(X,Zx); #rm(Zx)
   }
   
   
@@ -36,18 +36,28 @@ cc<-function (X,Y,Zx=NULL,Zy=Zx,fill.na=FALSE)
   Ynames = dimnames(Y)[[2]]
   ind.names = dimnames(X)[[1]]
   
+  
+  ###########################
   X=scale(X,scale=FALSE)
   svx=svd(X);
   Y=scale(Y,scale=FALSE)
   svy=svd(Y);
+
   if(any(c(svx$d < 1e-12), (svy$d < 1e-12))){
-    Xred=svx$u[,svx$d>1E-12]%*%diag(svx$d[svx$d>1E-12])
-    rotX=svx$v[,svx$d>1E-12]
-    Yred=svy$u[,svy$d>1E-12]%*%diag(svy$d[svy$d>1E-12])
-    rotY=svy$v[,svy$d>1E-12]
+    np=svx$d>1E-12
+    rotX=svx$v[,np]
+    svx$v=diag(sum(np))
+    svx$u=svx$u[,np]
+    svx$d=svx$d[np]
     
-    mod=CCA::cc(Xred,Yred)
+    np=svy$d>1E-12
+    rotY=svy$v[,np]
+    svy$v=diag(sum(np))
+    svy$u=svy$u[,np]
+    svy$d=svy$d[np]
     
+    ###############
+    mod=.cc_core(svx,svy,numb_cc = numb_cc)
     mod$names$Xnames=Xnames
     mod$xcoef=rotX%*%mod$xcoef
     
@@ -58,75 +68,18 @@ cc<-function (X,Y,Zx=NULL,Zy=Zx,fill.na=FALSE)
     mod$scores$corr.Y.yscores=cor(Y,mod$scores$yscores)
     mod$scores$corr.X.xscores=cor(X,mod$scores$xscores)
     mod$scores$corr.X.yscores=cor(X,mod$scores$yscores)
-  } else mod=CCA::cc(X, Y) 
+  } else {
+    mod=.cc_core(svx,svy,numb_cc = numb_cc)
+  } 
   
-  mod$prop_expl_var=
-    list(X = get_explaned_variance_proportion(X,mod$scores$xscores),
-         Y = get_explaned_variance_proportion(Y,mod$scores$yscores))
+  rownames(mod$xcoef)=colnames(X)
+  rownames(mod$ycoef)=colnames(Y)
+  colnames(mod$xcoef)=paste0("Cx",1:ncol(mod$xcoef))
+  colnames(mod$ycoef)=paste0("Cy",1:ncol(mod$ycoef))
+  mod$data=list(X=X,Y=Y,Zx=Zx,Zy=Zy)
+  
+  mod=.compute_stats(mod)
+
   return(mod)
-}
-
-
-convert2dummies <- function(Y){
-  if(any(apply(Y,2,is.character))){
-    all_levs=apply(Y,1,paste,collapse = ":")
-    all_levs=factor(all_levs)
-    # contrasts(all_levs)<- contr.sum(nlevels(all_levs))
-    Y=cbind(model.matrix(~all_levs+0))
-    colnames(Y)=gsub("all_levs","",colnames(Y))
-  }
-  Y
-}
-
-residualize <- function(Y,Z){
-  HY=Z%*%solve(t(Z)%*%Z)%*%t(Z)%*%Y
-  Y-HY
-}
-
-fillnas <- function(Y){
-  nas=which(is.na(Y),arr.ind = TRUE)
-  if(nrow(nas)==0) return(Y)
-  Y[nas]=colMeans(Y[,nas[,2],drop=FALSE],na.rm=TRUE)
-  Y
-}
-
-as_named_matrix <- function(Y,root_name="V"){
-  Y=as.matrix(Y)
-  if(is.null(colnames(Y)))
-    colnames(Y)=paste0(root_name,1:ncol(Y))
-  Y
-}
-
-
-
-get_explaned_variance_proportion <- function(Y,score){
-  expl_var=sapply(1:ncol(score),function(i){
-    sc=score[,i,drop=FALSE]
-    sc=sc/(t(score[,i,drop=FALSE])%*%score[,i,drop=FALSE])[,]
-    proj= sc%*%t(sc)
-    tr(t(Y)%*%proj%*%Y)
-    })
-  expl_var/(tr(t(Y)%*%Y)/(nrow(Y)-1))
-}
-
-
-######################
-.cc_perm <- function(X,Y,nperms,alpha=.5){
-  n=nrow(X)
-  ccmod=CCA::cc(X, Y)
-  # ccmod$cor
-  
-  perm_and_cc=function(X,Y){
-    ccp=CCA::cc(X[sample(n),,drop=FALSE], Y)
-    ccp$cor[1]
-  }
-  
-  ccmod$p_values=rep(1,length(ccmod$cor))
-  for(i in 1:length(ccmod$cor)){
-    ccmod$p_values[i]=(sum(replicate(nperms,perm_and_cc(X,Y))>=ccmod$cor[i])+1)/(nperms+1)
-    if(ccmod$p_values[i]>=alpha) return(ccmod)
-      X=residualize(X,ccmod$scores$xscores[,i,drop=FALSE])
-      Y=residualize(Y,ccmod$scores$yscores[,i,drop=FALSE])
-    }
 }
 
