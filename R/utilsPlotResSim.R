@@ -2,6 +2,11 @@
 #'@name summaryResSim
 #'@export
 summaryResSim <- function(res,alphas=c(.01,.05,.1,.5,.75),na.rm=FALSE){
+  n=nrow(res)
+  limits=2*sqrt(alphas*(1-alphas)/n)
+  limits=rbind(alphas-limits,
+               alphas+limits)
+  print(round(limits,3))
   out=sapply(alphas,function(a)colMeans(res<=a,na.rm=na.rm))
   if(!is(out,"matrix")) out=t(matrix(out))
   colnames(out)=paste("<=",alphas,sep="")

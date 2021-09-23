@@ -4,7 +4,7 @@
 \alias{cc}
 \title{cc}
 \usage{
-cc(X, Y, Zx = NULL, Zy = Zx, numb_cc = NULL, fill.na = FALSE)
+cc(X, Y, Zx = NULL, Zy = Zx, fill.na = FALSE)
 }
 \arguments{
 \item{X}{See \code{\link[CCA]{cc}} for a proper documentation.}
