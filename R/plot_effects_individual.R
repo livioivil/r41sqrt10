@@ -8,6 +8,7 @@
 #' @param col.by NULL or a vector of values that indicate the strata
 #' @param npoints 10
 #' @param center_effs logical. Should be the effect of the oder predictors removed from the lines and the observations? 
+#' @param plot_obs if TRUE (default) it draws the observed values (points) after residualization by the other predictors
 #' @export
 #' @import ggplot2
 #' @examples
@@ -44,7 +45,7 @@
 #' }
 
 plot_effects_individual <- function(data,pred_name,resp_name,predict_funct,
-                         col.by=NULL,npoints=10,center_effs=TRUE){
+                         col.by=NULL,npoints=10,center_effs=TRUE,plot_obs=TRUE){
   rownames(data)=NULL
   pred_values=data[, pred_name]
   # if(is.numeric(data[,pred_name])) {
@@ -94,8 +95,9 @@ plot_effects_individual <- function(data,pred_name,resp_name,predict_funct,
   plot_data$col.by=temp$col.by
   plot_data$pred_var=rep(pred_values,each=nrow(data))
   pp=ggplot2::ggplot()+ ggplot2::geom_line(data=plot_data, 
-                     aes(x=pred_var,y=value,group=id,colour=col.by))
+                     aes(x=pred_var,y=value,group=id,colour=col.by),size=.0001)
   pp=pp+ theme(legend.position="none")+labs(x=pred_name,y=resp_name)
+  if(plot_obs)
   pp=pp+geom_point(data=temp, aes(x=pred_var,y=nett_resp,colour=col.by))
    pp
 }

@@ -46,3 +46,21 @@ by.df<-function(...){
 colVars <- function(X,...) apply(X,2,var,...)
 rowVars <- function(X,...) apply(X,1,var,...)
 
+########
+#' Is/Are the value(s) in x within the reange defined by lims? 
+#' @export
+
+in_range <- function(x,lims,equal_included=c(TRUE,FALSE)){
+  if(equal_included[1])   {  
+    if(equal_included[2]) 
+      out=(x>=lims[1])&(x<=lims[2]) else
+        out=(x>=lims[1])&(x<lims[2])
+  } else
+  {  
+    if(equal_included[2]) 
+      out=(x>lims[1])&(x<=lims[2]) else
+        out=(x>lims[1])&(x<lims[2])
+  }
+  out
+}
+

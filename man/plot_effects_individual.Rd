@@ -11,7 +11,8 @@ plot_effects_individual(
   predict_funct,
   col.by = NULL,
   npoints = 10,
-  center_effs = TRUE
+  center_effs = TRUE,
+  plot_obs = TRUE
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ plot_effects_individual(
 \item{npoints}{10}
 
 \item{center_effs}{logical. Should be the effect of the oder predictors removed from the lines and the observations?}
+
+\item{plot_obs}{if TRUE (default) it draws the observed values (points) after residualization by the other predictors}
 }
 \description{
 plot_effects_individual
