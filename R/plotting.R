@@ -21,8 +21,3 @@ plotLog10 <- function(x,y,...){
   plot(-log10(x),-log10(y),...); abline(0,1)}
 
 
-#'@title logit
-#'@name expit
-#'@export logit expit
-logit <- function(x) x/(1-x)
-expit <- function(x) exp(x)/(1+exp(x))

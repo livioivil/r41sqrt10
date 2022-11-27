@@ -64,3 +64,9 @@ in_range <- function(x,lims,equal_included=c(TRUE,FALSE)){
   out
 }
 
+#'@title logit and expit
+#'@name expit and expit
+#'@export logit 
+#'@export expit
+logit <- function(x) log(x/(1-x))
+expit <- function(x) exp(x)/(1+exp(x))
