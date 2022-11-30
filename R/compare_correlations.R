@@ -13,17 +13,17 @@ compare_rhos <- function(r1,r2,n1=61,n2=68){
   return(list(z=z,p=2*pnorm(-abs(z))))
 }
 
-
-compare_rhos(.069,.067)
-compare_rhos(-.320,-.166)
-compare_rhos(-.235,-.227)
-
-compare_rhos(-.319,.068)
-compare_rhos(.185,.247)
-compare_rhos(.044,.125)
-
-compare_rhos(-.144	,.173)
-compare_rhos(.190,.205)
-compare_rhos(.425,.309)
+# 
+# compare_rhos(.069,.067)
+# compare_rhos(-.320,-.166)
+# compare_rhos(-.235,-.227)
+# 
+# compare_rhos(-.319,.068)
+# compare_rhos(.185,.247)
+# compare_rhos(.044,.125)
+# 
+# compare_rhos(-.144	,.173)
+# compare_rhos(.190,.205)
+# compare_rhos(.425,.309)
   
 
