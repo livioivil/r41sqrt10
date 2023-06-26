@@ -1,11 +1,9 @@
+#' rmvnorm_commonrho
 #' @name rmvnorm_commonrho
 #' @export 
 
-rmvnorm_commonrho <- function(n,rho=.5,mu=0,sigma=1){
-  eps1=rnorm(mean=0,n=n,sd=sigma)
-  eps2=rnorm(mean=0,n=n,sd=sigma)
-  eps=rnorm(mean=0,n=n,sd=sigma)
-  
-  Y <- cbind(y1=(1-rho^2)*eps1+(rho^2)*eps,
-             y2=(1-rho^2)*eps2+sign(rho)*(rho^2)*eps)
+rmvnorm_commonrho <- function(n=10,m=2,rho=.5,mu=0,sigma=1){
+  eps=matrix(rnorm(mean=mu,n=n*m,sd=sigma*sqrt(1-rho)),n,m)
+  lat=matrix(rnorm(mean=mu,n=n,sd=sigma*sqrt(rho)),n,m)
+  eps+lat
 }
